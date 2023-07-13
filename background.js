@@ -48,13 +48,14 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
       tab.id,
       { code: '(' + getSelectionHtml.toString() + ')();' },
       (results) => {
-        var markdown = turndownService.turndown(results[0]);
-        var output = parsePlaceholders(action.format, markdown, tab.title, tab.url);
+        let markdown = turndownService.turndown(results[0]);
+        let output = parsePlaceholders(action.format, markdown, tab.title, tab.url);
+        let path = parsePlaceholders(action.path, markdown, tab.title, tab.url);
 
         // Create the URL to send to Obsidian
-        var obsidianUrl = 'https://niondevi.github.io/clipsidian/new.htm';
+        let obsidianUrl = 'https://niondevi.github.io/clipsidian/new.htm';
         obsidianUrl += '?vault=' + encodeURI(action.vault);
-        obsidianUrl += '&file=' + encodeURI(action.path);
+        obsidianUrl += '&file=' + encodeURI(path);
         obsidianUrl += '&content=' + encodeURI(output);
         obsidianUrl += `&append=${true}&overwrite=${false}&silent=${false}`;
 
@@ -62,7 +63,7 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
         console.log(`***************************************`);
         console.log(`Action: ${action.name}`);
         console.log(`Vault: ${action.vault}`);
-        console.log(`Path: ${action.path}`);
+        console.log(`Path: ${path}`);
         console.log(`Format: ${action.format}`);
         console.log(`---------------------------------------`);
         console.log(`Title: ${tab.title}`);
@@ -86,6 +87,10 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
 
 const parsePlaceholders = (format, clip, title, url) => {
   let output = format;
+  clip = encodeURIComponent(clip)
+  title = encodeURIComponent(title)
+  url = encodeURIComponent(url)
+
 
   const replaceDateTime = (pattern, formatFunc) => {
     let re = new RegExp(`{${pattern}:(.*?)}`, 'g');
