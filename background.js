@@ -56,7 +56,7 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
         obsidianUrl += '?vault=' + encodeURI(action.vault);
         obsidianUrl += '&file=' + encodeURI(action.path);
         obsidianUrl += '&content=' + encodeURI(output);
-        obsidianUrl += `&append=${true}&overwrite=${false}&silent=${true}`;
+        obsidianUrl += `&append=${true}&overwrite=${false}&silent=${false}`;
 
         // Log data
         console.log(`***************************************`);
