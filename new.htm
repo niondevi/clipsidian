@@ -16,8 +16,8 @@
       obsidianUrl.searchParams.append('overwrite', params.get('overwrite') === 'true');
       obsidianUrl.searchParams.append('silent', params.get('silent') === 'true');
 
-      // Open the Obsidian URL
-      window.open(obsidianUrl.toString());
+      // Redirect to the Obsidian URL
+      window.location.href = obsidianUrl.toString();
     };
   </script>
 </body>
