@@ -53,9 +53,9 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
 
         // Create the URL to send to Obsidian
         var obsidianUrl = new URL('https://niondevi.github.io/clipsidian/new.htm');
-        obsidianUrl.searchParams.append('vault', encodeURIComponent(action.vault));
-        obsidianUrl.searchParams.append('file', encodeURIComponent(action.path));
-        obsidianUrl.searchParams.append('content', encodeURIComponent(output));
+        obsidianUrl.searchParams.append('vault', action.vault);
+        obsidianUrl.searchParams.append('file', action.path);
+        obsidianUrl.searchParams.append('content', output);
         obsidianUrl.searchParams.append('append', 'true');
         obsidianUrl.searchParams.append('overwrite', 'false');
         obsidianUrl.searchParams.append('silent', 'true');
