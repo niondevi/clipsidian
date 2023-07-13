@@ -12,14 +12,10 @@
     "<all_urls>"
   ],
   "background": {
-    "scripts": [
-      "lib/turndown.js",
-      "lib/moment.min.js",
-      "background.js"
-    ],
+    "page": "background.htm",
     "persistent": false
   },
-  "options_page": "options/options.html",
+  "options_page": "options/options.htm",
   "icons": {
     "16": "icon/icon16.png",
     "48": "icon/icon48.png",

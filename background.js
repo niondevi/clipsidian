@@ -33,12 +33,6 @@ const createContextMenus = () => {
   });
 };
 
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.type === "OPEN_OBSIDIAN_URL") {
-    chrome.tabs.create({ url: request.url });
-    sendResponse({ status: "success" });
-  }
-});
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
   const actionIndex = parseInt(info.menuItemId);
@@ -73,14 +67,14 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
         console.log(`Output: ${output}`);
         console.log(`Obsidian URL: ${obsidianUrl}`);
 
-        // Open the URL in a new tab
-        chrome.tabs.create({ url: obsidianUrl , active: true},(newTab) => {
-          // setTimeout(() => { chrome.tabs.remove(newTab.id) }, 500);
-        });
+        // Make a request to the Obsidian URL
+        var iframe = document.getElementById('clipsidian-iframe');
+        iframe.src = obsidianUrl;
       }
     );
   });
 });
+
 
 
 
