@@ -52,13 +52,11 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
         var output = parsePlaceholders(action.format, markdown, tab.title, tab.url);
 
         // Create the URL to send to Obsidian
-        var obsidianUrl = new URL('https://niondevi.github.io/clipsidian/new.htm');
-        obsidianUrl.searchParams.append('vault', action.vault);
-        obsidianUrl.searchParams.append('file', action.path);
-        obsidianUrl.searchParams.append('content', output);
-        obsidianUrl.searchParams.append('append', 'true');
-        obsidianUrl.searchParams.append('overwrite', 'false');
-        obsidianUrl.searchParams.append('silent', 'true');
+        var obsidianUrl = 'https://niondevi.github.io/clipsidian/new.htm';
+        obsidianUrl += '?vault=' + encodeURI(action.vault);
+        obsidianUrl += '&file=' + encodeURI(action.path);
+        obsidianUrl += '&content=' + encodeURI(output);
+        obsidianUrl += `&append=${true}&overwrite=${false}&silent=${true}`;
 
         // Log data
         console.log(`***************************************`);
@@ -72,14 +70,15 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
         console.log(`---------------------------------------`);
         console.log(`Markdown: ${markdown}`);
         console.log(`Output: ${output}`);
-        console.log(`Obsidian URL: ${obsidianUrl.toString()}`);
+        console.log(`Obsidian URL: ${obsidianUrl}`);
 
         // Open the URL in a new tab
-        chrome.tabs.create({ url: obsidianUrl.toString() });
+        chrome.tabs.create({ url: obsidianUrl });
       }
     );
   });
 });
+
 
 
 
