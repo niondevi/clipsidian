@@ -10,7 +10,8 @@
       // Check if it's a success callback
       if (params.has('x-success')) {
         // This is a success callback, send a message to close the tab
-        chrome.runtime.sendMessage({ type: "CLOSE_TAB" });
+        // chrome.runtime.sendMessage({ type: "CLOSE_TAB" });
+        console.log('chrome.runtime.sendMessage({ type: "CLOSE_TAB" });')
         return;
       }
 
