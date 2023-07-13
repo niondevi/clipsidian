@@ -10,27 +10,27 @@
       // Check if it's a success callback
       if (params.has('x-success')) {
         // This is a success callback, send a message to close the tab
-        // chrome.runtime.sendMessage({ type: "CLOSE_TAB" });
-        console.log('chrome.runtime.sendMessage({ type: "CLOSE_TAB" });')
+        chrome.runtime.sendMessage({ type: "CLOSE_TAB" });
         return;
       }
 
       // Construct the Obsidian URL
-      var obsidianUrl = new URL('obsidian://new');
-      obsidianUrl.searchParams.append('vault', decodeURIComponent(params.get('vault')));
-      obsidianUrl.searchParams.append('file', decodeURIComponent(params.get('file')));
-      obsidianUrl.searchParams.append('content', decodeURIComponent(params.get('content')));
-      obsidianUrl.searchParams.append('append', params.get('append') === 'true');
-      obsidianUrl.searchParams.append('overwrite', params.get('overwrite') === 'true');
-      obsidianUrl.searchParams.append('silent', params.get('silent') === 'true');
+      var obsidianUrl = 'obsidian://new';
+      obsidianUrl += '?vault=' + encodeURIComponent(params.get('vault'));
+      obsidianUrl += '&file=' + encodeURIComponent(params.get('file'));
+      obsidianUrl += '&append=' + encodeURIComponent(params.get('append'));
+      obsidianUrl += '&overwrite=' + encodeURIComponent(params.get('overwrite'));
+      obsidianUrl += '&silent=' + encodeURIComponent(params.get('silent'));
+      obsidianUrl += '&content=' + encodeURIComponent(params.get('content'));
 
-      // Add x-success callback URL
+      // Create a callbackUrl using the current page URL
       var callbackUrl = new URL(window.location.href);
-      callbackUrl.searchParams.append('x-success', 'true');
-      obsidianUrl.searchParams.append('x-success', encodeURIComponent(callbackUrl.toString()));
+      callbackUrl.searchParams.set('x-success', 'true');
+
+      obsidianUrl += '&x-success=' + encodeURIComponent(callbackUrl.toString());
 
       // Redirect to the Obsidian URL
-      window.location.href = obsidianUrl.toString();
+      window.location.href = obsidianUrl;
     };
   </script>
 </body>
