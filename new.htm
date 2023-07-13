@@ -7,13 +7,6 @@
       // Get the URL parameters
       var params = new URLSearchParams(window.location.search);
 
-      // Check if it's a success callback
-      if (params.has('x-success')) {
-        // This is a success callback, send a message to close the tab
-        chrome.runtime.sendMessage({ type: "CLOSE_TAB" });
-        return;
-      }
-
       // Construct the Obsidian URL
       var obsidianUrl = 'obsidian://new';
       obsidianUrl += '?vault=' + (params.get('vault'));
@@ -23,14 +16,8 @@
       obsidianUrl += '&silent=' + (params.get('silent'));
       obsidianUrl += '&content=' + (params.get('content'));
 
-      // Create a callbackUrl using the current page URL
-      var callbackUrl = new URL(window.location.href);
-      callbackUrl.searchParams.set('x-success', 'true');
-
-      obsidianUrl += '&x-success=' + encodeURIComponent(callbackUrl.toString());
-
-      // Redirect to the Obsidian URL
       window.location.href = obsidianUrl;
+      window.close()
     };
   </script>
 </body>

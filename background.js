@@ -149,9 +149,3 @@ chrome.storage.onChanged.addListener((changes, areaName) => {
     createContextMenus();
   }
 });
-
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.type === "CLOSE_TAB") {
-    chrome.tabs.remove(sender.tab.id);
-  }
-});
