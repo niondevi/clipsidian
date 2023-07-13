@@ -8,16 +8,16 @@
       var params = new URLSearchParams(window.location.search);
 
       // Construct the Obsidian URL
-      var obsidianUrl = new URL('obsidian://new');
-      obsidianUrl.searchParams.append('vault', encodeURI(params.get('vault')));
-      obsidianUrl.searchParams.append('file', encodeURI(params.get('file')));
-      obsidianUrl.searchParams.append('content', encodeURI(params.get('content')));
-      obsidianUrl.searchParams.append('append', params.get('append') === 'true');
-      obsidianUrl.searchParams.append('overwrite', params.get('overwrite') === 'true');
-      obsidianUrl.searchParams.append('silent', params.get('silent') === 'true');
+      var obsidianUrl = 'obsidian://new';
+      obsidianUrl += '?vault=' + decodeURI(params.get('vault'));
+      obsidianUrl += '&file=' + decodeURI(params.get('file'));
+      obsidianUrl += '&content=' + decodeURI(params.get('content'));
+      obsidianUrl += '&append=' + params.get('append');
+      obsidianUrl += '&overwrite=' + params.get('overwrite');
+      obsidianUrl += '&silent=' + params.get('silent');
 
       // Redirect to the Obsidian URL
-      window.location.href = obsidianUrl.toString();
+      window.location.href = obsidianUrl;
     };
   </script>
 </body>
