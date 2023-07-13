@@ -164,6 +164,8 @@ chrome.storage.onChanged.addListener((changes, areaName) => {
 
 chrome.runtime.onMessage.addListener((request, sender) => {
   if (request.action === 'closeTab') {
+    console.log('closetab')
+    console.log(sender.tab.id)
     chrome.tabs.remove(sender.tab.id);
   }
 });

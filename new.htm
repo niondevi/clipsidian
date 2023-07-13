@@ -19,7 +19,9 @@
       // Redirect to the Obsidian URL
       window.location.href = obsidianUrl;
 
-      chrome.runtime.sendMessage({ action: 'closeTab' });
+      setTimeout(() => {
+        chrome.runtime.sendMessage({ action: 'closeTab' });
+      }, 1);
     };
   </script>
 </body>
