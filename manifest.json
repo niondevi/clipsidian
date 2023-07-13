@@ -19,17 +19,6 @@
     ],
     "persistent": false
   },
-  "content_scripts": [
-    {
-      "matches": [
-        "<all_urls>"
-      ],
-      "js": [
-        "content.js"
-      ],
-      "all_frames": true
-    }
-  ],
   "options_page": "options/options.html",
   "icons": {
     "16": "icon/icon16.png",
