@@ -11,10 +11,10 @@
       var obsidianUrl = 'obsidian://new';
       obsidianUrl += '?vault=' + params.get('vault');
       obsidianUrl += '&file=' + params.get('file');
-      obsidianUrl += '&content=' + params.get('content');
       obsidianUrl += '&append=' + params.get('append');
       obsidianUrl += '&overwrite=' + params.get('overwrite');
       obsidianUrl += '&silent=' + params.get('silent');
+      obsidianUrl += '&content=' + params.get('content');
 
       // Redirect to the Obsidian URL
       window.location.href = obsidianUrl;
