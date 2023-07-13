@@ -74,8 +74,8 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
         console.log(`Obsidian URL: ${obsidianUrl}`);
 
         // Open the URL in a new tab
-        chrome.tabs.create({ url: obsidianUrl , active: true},function(newTab){
-          // setTimeout(function() { chrome.tabs.remove(newTab.id) }, 500);
+        chrome.tabs.create({ url: obsidianUrl , active: true},(newTab) => {
+          setTimeout(() => { chrome.tabs.remove(newTab.id) }, 500);
         });
       }
     );
