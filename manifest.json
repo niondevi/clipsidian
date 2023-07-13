@@ -1,0 +1,38 @@
+{
+  "manifest_version": 2,
+  "name": "Clipsidian",
+  "version": "1.0",
+  "author": "ɴıoᴎ",
+  "description": "Clipsidian lets you capture in-browser selected content and send it directly to your Obsidian vault.",
+  "permissions": [
+    "contextMenus",
+    "activeTab",
+    "storage",
+    "<all_urls>"
+  ],
+  "background": {
+    "scripts": [
+      "lib/turndown.js",
+      "lib/moment.min.js",
+      "background.js"
+    ],
+    "persistent": false
+  },
+  "options_page": "options/options.html",
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "all_frames": true
+    }
+  ],
+  "icons": {
+    "16": "icon/icon16.png",
+    "48": "icon/icon48.png",
+    "128": "icon/icon128.png"
+  }
+}
