@@ -9,9 +9,9 @@
 
       // Construct the Obsidian URL
       var obsidianUrl = new URL('obsidian://new');
-      obsidianUrl.searchParams.append('vault', decodeURIComponent(params.get('vault')));
-      obsidianUrl.searchParams.append('file', decodeURIComponent(params.get('file')));
-      obsidianUrl.searchParams.append('content', decodeURIComponent(params.get('content')));
+      obsidianUrl.searchParams.append('vault', params.get('vault'));
+      obsidianUrl.searchParams.append('file', params.get('file'));
+      obsidianUrl.searchParams.append('content', params.get('content'));
       obsidianUrl.searchParams.append('append', params.get('append') === 'true');
       obsidianUrl.searchParams.append('overwrite', params.get('overwrite') === 'true');
       obsidianUrl.searchParams.append('silent', params.get('silent') === 'true');

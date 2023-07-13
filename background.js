@@ -33,6 +33,13 @@ const createContextMenus = () => {
   });
 };
 
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.type === "OPEN_OBSIDIAN_URL") {
+    chrome.tabs.create({ url: request.url });
+    sendResponse({ status: "success" });
+  }
+});
+
 chrome.contextMenus.onClicked.addListener((info, tab) => {
   const actionIndex = parseInt(info.menuItemId);
   chrome.storage.sync.get('actions', (data) => {
@@ -49,9 +56,9 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
         obsidianUrl.searchParams.append('vault', encodeURIComponent(action.vault));
         obsidianUrl.searchParams.append('file', encodeURIComponent(action.path));
         obsidianUrl.searchParams.append('content', encodeURIComponent(output));
-        obsidianUrl.searchParams.append('append', true);
-        obsidianUrl.searchParams.append('overwrite', false);
-        obsidianUrl.searchParams.append('silent', true);
+        obsidianUrl.searchParams.append('append', encodeURIComponent('true'));
+        obsidianUrl.searchParams.append('overwrite', encodeURIComponent('false'));
+        obsidianUrl.searchParams.append('silent', encodeURIComponent('true'));
 
         // Log data
         console.log(`***************************************`);
@@ -67,12 +74,14 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
         console.log(`Output: ${output}`);
         console.log(`Obsidian URL: ${obsidianUrl.toString()}`);
 
-        // Open the URL
-        chrome.tabs.sendMessage(tab.id, { type: 'OPEN_OBSIDIAN_URL', url: obsidianUrl.toString() });
+        // Open the URL in a new tab
+        chrome.tabs.create({ url: obsidianUrl.toString() });
       }
     );
   });
 });
+
+
 
 
 const parsePlaceholders = (format, clip, title, url) => {
