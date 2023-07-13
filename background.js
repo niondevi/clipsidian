@@ -56,9 +56,9 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
         obsidianUrl.searchParams.append('vault', encodeURIComponent(action.vault));
         obsidianUrl.searchParams.append('file', encodeURIComponent(action.path));
         obsidianUrl.searchParams.append('content', encodeURIComponent(output));
-        obsidianUrl.searchParams.append('append', encodeURIComponent('true'));
-        obsidianUrl.searchParams.append('overwrite', encodeURIComponent('false'));
-        obsidianUrl.searchParams.append('silent', encodeURIComponent('true'));
+        obsidianUrl.searchParams.append('append', 'true');
+        obsidianUrl.searchParams.append('overwrite', 'false');
+        obsidianUrl.searchParams.append('silent', 'true');
 
         // Log data
         console.log(`***************************************`);
@@ -80,6 +80,7 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
     );
   });
 });
+
 
 
 
