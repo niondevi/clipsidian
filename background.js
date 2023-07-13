@@ -74,7 +74,19 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
         console.log(`Obsidian URL: ${obsidianUrl}`);
 
         // Open the URL in a new tab
-        chrome.tabs.create({ url: obsidianUrl });
+        chrome.tabs.create({ url: obsidianUrl }, function(newTab) {
+          // Use chrome.tabs.onUpdated to check when the tab has completed loading
+          chrome.tabs.onUpdated.addListener(function listener (tabId, info) {
+            if (info.status === 'complete' && tabId === newTab.id) {
+              chrome.tabs.onUpdated.removeListener(listener);
+
+              // Send a message to the tab to tell it to close
+              setTimeout(() => {
+                chrome.tabs.sendMessage(newTab.id, {action: "closeTab"});
+              }, 1);
+            }
+          });
+        });
       }
     );
   });
@@ -147,5 +159,11 @@ chrome.runtime.onInstalled.addListener((details) => {
 chrome.storage.onChanged.addListener((changes, areaName) => {
   if (areaName === 'sync' && changes.actions) {
     createContextMenus();
+  }
+});
+
+chrome.runtime.onMessage.addListener((request, sender) => {
+  if (request.action === 'closeTab') {
+    chrome.tabs.remove(sender.tab.id);
   }
 });
