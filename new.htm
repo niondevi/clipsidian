@@ -16,12 +16,12 @@
 
       // Construct the Obsidian URL
       var obsidianUrl = 'obsidian://new';
-      obsidianUrl += '?vault=' + encodeURIComponent(params.get('vault'));
-      obsidianUrl += '&file=' + encodeURIComponent(params.get('file'));
-      obsidianUrl += '&append=' + encodeURIComponent(params.get('append'));
-      obsidianUrl += '&overwrite=' + encodeURIComponent(params.get('overwrite'));
-      obsidianUrl += '&silent=' + encodeURIComponent(params.get('silent'));
-      obsidianUrl += '&content=' + encodeURIComponent(params.get('content'));
+      obsidianUrl += '?vault=' + (params.get('vault'));
+      obsidianUrl += '&file=' + (params.get('file'));
+      obsidianUrl += '&append=' + (params.get('append'));
+      obsidianUrl += '&overwrite=' + (params.get('overwrite'));
+      obsidianUrl += '&silent=' + (params.get('silent'));
+      obsidianUrl += '&content=' + (params.get('content'));
 
       // Create a callbackUrl using the current page URL
       var callbackUrl = new URL(window.location.href);
