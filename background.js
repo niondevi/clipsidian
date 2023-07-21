@@ -126,9 +126,8 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
         obsidianUrl += '&content=' + encodeURI(output);
         obsidianUrl += `&append=${!action.overwrite}&silent=${!action.openNote}`;
 
-        // Inject the iframe creation code into the current tab
+        // Inject the iframe creation code into the iframe
         document.getElementById('clipsidian-iframe').src = obsidianUrl.toString();
-        setTimeout(() => { document.getElementById('clipsidian-iframe').src = ''; }, 5000);
       }
     );
   });
