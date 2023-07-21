@@ -82,12 +82,12 @@ The `date` and `time` placeholders in the clipping template can be customized to
 - `{date}`: Displays the current date in `YYYY-MM-DD` format.
 
 - `{date:FORMAT}`: Displays the current date in the specified format.
-	- Example: `{date:MMM Do, YYYY}` -> `January 1st, 2000`
+	- Example: `{date:MMM Do, YYYY}` turns into `January 1st, 2000`
 
 - `{time}`: Displays the current time in `HH:mm:ss` format.
 
 - `{time:FORMAT}`: Displays the current time in the specified format.
-	- Example: `{time:hh:mm A}` -> `12:34 AM`
+	- Example: `{time:hh:mm A}` turns into `12:34 AM`
 
 ## Locale
 
@@ -108,7 +108,9 @@ For any issues, feature requests, or questions, please open an [issue](https://g
 
 ## Contributing
 
-We welcome contributions to Clipsidian! If you like the project and want to contribute, you can support us on [Patreon](https://www.patreon.com/niondevi) or [Ko-fi](https://ko-fi.com/niondevi).
+We welcome contributions to Clipsidian! 
+
+f you like the project and want to contribute, you can support us on [Patreon](https://www.patreon.com/niondevi) or [Ko-fi](https://ko-fi.com/niondevi).
 
 ## Acknowledgements
 
