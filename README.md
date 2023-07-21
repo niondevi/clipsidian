@@ -52,14 +52,18 @@ The name of the action for easy identification.
 The name of your Obsidian vault where the clip will be stored.
 
 - **Target Note Path**
+
 The full path of the note in your Obsidian vault where the clip will be saved. This path can be dynamically formatted using the placeholders `{title}`, `{date}`, and `{time}`. 
+
 Example:
 ```
 Web Clippings/{date:MM}
 ```
 
 - **Clipping Template**
+
 The template used to format the clipped content. This markdown template supports the placeholders `{clip}`, `{title}`, `{url}`, `{date}`, and `{time}`.
+
 Example:
 ```
 {clip} [{title}]({url})
