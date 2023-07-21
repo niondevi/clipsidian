@@ -80,9 +80,12 @@ You can also choose the **behavior of the clipping action**:
 The `date` and `time` placeholders in the clipping template can be customized to match your preference by using [moment's](https://momentjs.com/docs/#/displaying/format/) date and time formatting. The placeholders can be used in the following ways:
 
 - `{date}`: Displays the current date in `YYYY-MM-DD` format.
+
 - `{date:FORMAT}`: Displays the current date in the specified format.
 	- Example: `{date:MMM Do, YYYY}` -> `January 1st, 2000`
+
 - `{time}`: Displays the current time in `HH:mm:ss` format.
+
 - `{time:FORMAT}`: Displays the current time in the specified format.
 	- Example: `{time:hh:mm A}` -> `12:34 AM`
 
