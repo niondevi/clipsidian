@@ -1,13 +1,14 @@
-
-![Example GIF](icon/icon48.png)
-
 # Clipsidian
 
 
-![Example GIF](docs/example.gif)
+<div align="center">![Example GIF](docs/example.gif)</div>
 
   
-Clipsidian is a Chrome extension that streamlines the process of collecting web content for [Obsidian](https://obsidian.md/), a powerful knowledge base that works on top of a local folder of plain text Markdown files. With Clipsidian, you can easily extract crucial information from web pages and store it directly into your Obsidian vault. This extension goes beyond basic web clipping by offering customization for each action, allowing you to decide where the content is stored, its format, and include additional details like date, time, page title, and URL.
+Clipsidian is a Chrome extension that streamlines the process of collecting web content for [Obsidian](https://obsidian.md/). 
+
+With Clipsidian, you can easily extract crucial information from web pages and store it directly into your Obsidian vault. This extension goes beyond basic web clipping by offering customization across multiple clipping action, allowing you to decide where in your vault is the content is stored. 
+
+With customizable templates you include additional details like date, time, page title, and URL with each saved web clipping, for rapid data collection in multiple contexts.
 
 
 ## Installation
@@ -38,7 +39,7 @@ For first-time users, you will need to authorize the page at https://niondevi.gi
 By authorizing this specific page, you enable it to handle all subsequent clips, thus avoiding repeated authorization requests. This authorization only happens once, streamlining your clipping process. When handling subsequent clips, any data (like the content to be clipped) that's passed as URL parameters to that page is not sent to a server but is instead handled entirely within your browser.
 
 
-### Configuring Clipping Actions
+## Configuring Clipping Actions
 
 Each clipping action can be configured with the following options:
 
@@ -63,7 +64,7 @@ You can also choose the **behavior of the clipping action**:
 - **Append to note**: The clip will be appended to the existing note at the specified path.
 - **Overwrite note**: The existing note at the specified path will be overwritten with the new clip.
 
-#### Date and Time Formatting
+### Date and Time Formatting
 
 The `date` and `time` placeholders in the clipping template can be customized to match your preference by using [moment's](https://momentjs.com/docs/#/displaying/format/) date and time formatting. The placeholders can be used in the following ways:
 
@@ -74,13 +75,16 @@ The `date` and `time` placeholders in the clipping template can be customized to
 - `{time:FORMAT}`: Displays the current time in the specified format.
 	- Example: `{time:hh:mm A}` -> `12:34 AM`
 
-#### Locale
+### Locale
 
-You can also set the locale for date and time formatting in your own language in the extension options.
+You can also set the locale for date and time formatting in your own language in the options page.
 
 ## Data Safety
 
 Your data is secure and is only processed within your browser, even during the authorization workaround. We don't send, track, or store any of your details. If you still have any doubts, you or someone you trust could always take a look at the code, just to make sure everything's clear. As an open-source project, we believe in full transparency.
+
+
+<div align="center">![Example GIF](icon/icon48.png)</div>
 
 ## Support
 
