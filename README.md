@@ -1,5 +1,7 @@
 # Clipsidian
 
+A Chrome extension that lets you capture in-browser content and send it directly to your Obsidian vault
+
 
 <p align="center">
   <img src="./docs/example.gif">
