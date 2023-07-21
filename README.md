@@ -10,7 +10,7 @@ A Chrome extension that lets you capture in-browser content and send it directly
   
 Clipsidian is a Chrome extension that streamlines the process of collecting web content for [Obsidian](https://obsidian.md/). 
 
-With Clipsidian, you can easily extract crucial information from web pages and store it directly into your Obsidian vault. This extension goes beyond basic web clipping by offering customization across multiple clipping action, allowing you to decide where in your vault is the content is stored. 
+With Clipsidian, you can easily extract crucial information from web pages and store it directly into your Obsidian vault. This extension goes beyond basic web clipping by offering customization across multiple clipping actions, allowing you to decide where in your vaults each clipped web content is stored. 
 
 With customizable templates you include additional details like date, time, page title, and URL with each saved web clipping, for rapid data collection in multiple contexts.
 
