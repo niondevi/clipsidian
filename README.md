@@ -45,13 +45,15 @@ By authorizing this specific page, you enable it to handle all subsequent clips,
 
 Each clipping action can be configured with the following options:
 
-- **Action Name**
+### Action Name
+
 The name of the action for easy identification.
 
-- **Vault**
+### Vault
+
 The name of your Obsidian vault where the clip will be stored.
 
-- **Target Note Path**
+### Target Note Path
 
 The full path of the note in your Obsidian vault where the clip will be saved. This path can be dynamically formatted using the placeholders `{title}`, `{date}`, and `{time}`. 
 
@@ -60,7 +62,7 @@ Example:
 Web Clippings/{date:MM}
 ```
 
-- **Clipping Template**
+### Clipping Template
 
 The template used to format the clipped content. This markdown template supports the placeholders `{clip}`, `{title}`, `{url}`, `{date}`, and `{time}`.
 
