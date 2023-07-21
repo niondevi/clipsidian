@@ -45,28 +45,29 @@ By authorizing this specific page, you enable it to handle all subsequent clips,
 
 Each clipping action can be configured with the following options:
 
-**Action Name**
+- **Action Name**
 The name of the action for easy identification.
 
-**Vault**
+- **Vault**
 The name of your Obsidian vault where the clip will be stored.
 
-**Target Note Path**
+- **Target Note Path**
 The full path of the note in your Obsidian vault where the clip will be saved. This path can be dynamically formatted using the placeholders `{title}`, `{date}`, and `{time}`. 
 
-	Example:  `Web Clippings/{date:MM}`
+	Example:  Web Clippings/{date:MM}
 
-**Clipping Template**
+- **Clipping Template**
 The template used to format the clipped content. This markdown template supports the placeholders `{clip}`, `{title}`, `{url}`, `{date}`, and `{time}`.
 
-	Example:  `> {clip} [{title}]({url})`
+	Example:  > {clip} [{title}]({url})
+
 
 You can also choose the **behavior of the clipping action**:
 
 - **Append to note**: The clip will be appended to the existing note at the specified path.
 - **Overwrite note**: The existing note at the specified path will be overwritten with the new clip.
 
-### Date and Time Formatting
+## Date and Time Formatting
 
 The `date` and `time` placeholders in the clipping template can be customized to match your preference by using [moment's](https://momentjs.com/docs/#/displaying/format/) date and time formatting. The placeholders can be used in the following ways:
 
@@ -77,7 +78,7 @@ The `date` and `time` placeholders in the clipping template can be customized to
 - `{time:FORMAT}`: Displays the current time in the specified format.
 	- Example: `{time:hh:mm A}` -> `12:34 AM`
 
-### Locale
+## Locale
 
 You can also set the locale for date and time formatting in your own language in the options page.
 
@@ -92,11 +93,11 @@ Your data is secure and is only processed within your browser, even during the a
 
 ## Support
 
-For any issues, feature requests, or questions, please open an issue on our [GitHub repository](https://github.com/niondevi/clipsidian).
+For any issues, feature requests, or questions, please open an [issue](https://github.com/niondevi/clipsidian/issues).
 
 ## Contributing
 
-We welcome contributions to Clipsidian! If you like the project and want to contribute, you can support us on [GitHub](https://github.com/clipsidian/extension), [Patreon](https://www.patreon.com/niondevi), or [Ko-fi](https://ko-fi.com/niondevi).
+We welcome contributions to Clipsidian! If you like the project and want to contribute, you can support us on [Patreon](https://www.patreon.com/niondevi) or [Ko-fi](https://ko-fi.com/niondevi).
 
 ## Acknowledgements
 
