@@ -71,8 +71,7 @@ Example:
 {clip} [{title}]({url})
 ```
 
-
-You can also choose the **behavior of the clipping action**:
+### Clipping Action Behaviour
 
 - **Append to note**: The clip will be appended to the existing note at the specified path.
 - **Overwrite note**: The existing note at the specified path will be overwritten with the new clip.
