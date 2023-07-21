@@ -45,6 +45,12 @@ By authorizing this specific page, you enable it to handle all subsequent clips,
 
 ## Configuring Clipping Actions
 
+
+<p align="center">
+  <img src="./docs/options.png">
+</p>
+
+
 Each clipping action can be configured with the following options:
 
 ### Action Name
