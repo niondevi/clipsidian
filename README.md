@@ -110,7 +110,7 @@ For any issues, feature requests, or questions, please open an [issue](https://g
 
 We welcome contributions to Clipsidian! 
 
-f you like the project and want to contribute, you can support us on [Patreon](https://www.patreon.com/niondevi) or [Ko-fi](https://ko-fi.com/niondevi).
+If you like the project and want to contribute, you can support us on [Patreon](https://www.patreon.com/niondevi) or [Ko-fi](https://ko-fi.com/niondevi).
 
 ## Acknowledgements
 
