@@ -1,7 +1,9 @@
 # Clipsidian
 
 
-<div align="center">![Example GIF](docs/example.gif)</div>
+<p align="center">
+  <img src="./docs/example.gif">
+</p>
 
   
 Clipsidian is a Chrome extension that streamlines the process of collecting web content for [Obsidian](https://obsidian.md/). 
@@ -84,7 +86,9 @@ You can also set the locale for date and time formatting in your own language in
 Your data is secure and is only processed within your browser, even during the authorization workaround. We don't send, track, or store any of your details. If you still have any doubts, you or someone you trust could always take a look at the code, just to make sure everything's clear. As an open-source project, we believe in full transparency.
 
 
-<div align="center">![Example GIF](icon/icon48.png)</div>
+<p align="center">
+  <img src="./icon/icon48.png">
+</p>
 
 ## Support
 
