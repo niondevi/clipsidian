@@ -1,3 +1,5 @@
+const turndownService = new TurndownService();
+
 const getSelectionHtml = () => {
   var html = "";
   if (typeof window.getSelection != "undefined") {
@@ -16,12 +18,18 @@ const getSelectionHtml = () => {
   }
   return html;
 }
-
-const turndownService = new TurndownService();
-
 const createContextMenus = () => {
   chrome.contextMenus.removeAll(() => {
-    chrome.storage.sync.get('actions', (data) => {
+    chrome.storage.sync.get(['actions', 'momentLocale'], (data) => {
+
+      if (data.momentLocale) {
+        moment.locale(data.momentLocale.toLowerCase());
+      }
+      else {
+        let defaultLocale = navigator.languages && navigator.languages.length ? navigator.languages[0] : navigator.language;
+        moment.locale(defaultLocale.toLowerCase());
+      }
+  
       (data.actions || []).forEach((action, index) => {
         chrome.contextMenus.create({
           id: String(index),
@@ -31,56 +39,35 @@ const createContextMenus = () => {
       });
     });
   });
-};
-
-
-chrome.contextMenus.onClicked.addListener((info, tab) => {
-  const actionIndex = parseInt(info.menuItemId);
-  chrome.storage.sync.get('actions', (data) => {
-    const action = data.actions[actionIndex];
-    chrome.tabs.executeScript(
-      tab.id,
-      { code: '(' + getSelectionHtml.toString() + ')();' },
-      (results) => {
-        let markdown = turndownService.turndown(results[0]);
-        let output = parsePlaceholders(action.format, markdown, tab.title, tab.url);
-        let path = parsePlaceholders(action.path, markdown, tab.title, tab.url);
-
-        // Create the URL to send to Obsidian
-        let obsidianUrl = 'https://niondevi.github.io/clipsidian/new.htm';
-        obsidianUrl += '?vault=' + encodeURI(action.vault);
-        obsidianUrl += '&file=' + encodeURI(path);
-        obsidianUrl += '&content=' + encodeURI(output);
-        obsidianUrl += `&append=${true}&overwrite=${false}&silent=${false}`;
-
-        // Log data
-        console.log(`***************************************`);
-        console.log(`Action: ${action.name}`);
-        console.log(`Vault: ${action.vault}`);
-        console.log(`Path: ${path}`);
-        console.log(`Format: ${action.format}`);
-        console.log(`---------------------------------------`);
-        console.log(`Title: ${tab.title}`);
-        console.log(`URL: ${tab.url}`);
-        console.log(`---------------------------------------`);
-        console.log(`Markdown: ${markdown}`);
-        console.log(`Output: ${output}`);
-        console.log(`Obsidian URL: ${obsidianUrl}`);
-
-        // Make a request to the Obsidian URL
-        var iframe = document.getElementById('clipsidian-iframe');
-        iframe.src = obsidianUrl;
+}
+const convertRelativeLinks = (str, baseUrl) => {
+  let parser = new DOMParser();
+  let doc = parser.parseFromString(str, "text/html");
+  
+  let urlAttributes = ['href', 'src', 'srcset', 'data', 'action', 'cite'];
+  
+  urlAttributes.forEach(attribute => {
+    let elements = doc.querySelectorAll(`[${attribute}]`);
+    elements.forEach(el => {
+      let attrValue = el.getAttribute(attribute);
+      if(attrValue) {
+        let parts = attrValue.split(',');
+        let newParts = parts.map(part => {
+          let url = part.trim().split(' ')[0];
+          try {
+            new URL(url);
+            return part;
+          } catch(e) {
+            return part.replace(url, new URL(url, baseUrl).toString());
+          }
+        });
+        el.setAttribute(attribute, newParts.join(', '));
       }
-    );
+    });
   });
-});
-
-
-
-
-
-
-
+  
+  return doc.body.innerHTML;
+}
 const parsePlaceholders = (format, clip, title, url) => {
   let output = format;
   clip = encodeURIComponent(clip)
@@ -88,14 +75,14 @@ const parsePlaceholders = (format, clip, title, url) => {
   url = encodeURIComponent(url)
 
 
-  const replaceDateTime = (pattern, formatFunc) => {
+  const replaceDateTime = (pattern, defaultFormat) => {
     let re = new RegExp(`{${pattern}:(.*?)}`, 'g');
     let match = re.exec(output);
     while (match != null) {
-      output = output.replace(match[0], formatFunc(match[1]));
+      output = output.replace(match[0], moment().format(match[1]));
       match = re.exec(output);
     }
-    output = output.replace(new RegExp(`{${pattern}}`, 'g'), formatFunc());
+    output = output.replace(new RegExp(`{${pattern}}`, 'g'), defaultFormat);
   }
 
   // Replace {date}, {date:FORMAT}, {time}, {time:FORMAT}
@@ -112,36 +99,54 @@ const parsePlaceholders = (format, clip, title, url) => {
   output = output.replace(/{url}/g, url);
 
   return output;
-};
+}
 
+chrome.contextMenus.onClicked.addListener((info, tab) => {
+  const actionIndex = parseInt(info.menuItemId);
+  chrome.storage.sync.get('actions', (data) => {
 
+    const action = data.actions[actionIndex];
+    chrome.tabs.executeScript(
+      tab.id,
+      { code: '(' + getSelectionHtml.toString() + ')();' },
+      async (results) => {
 
-chrome.runtime.onInstalled.addListener((details) => {
-  if (details.reason === 'install') {
-    chrome.storage.sync.get(['actions', 'isFirstTime'], (result) => {
-      if (!result.isFirstTime) {
-        const defaultActions = [
-          {
-            name: "Clip selection to Obsidian",
-            vault: "Vault",
-            path: "Web Clippings",
-            format: 
-`{clip}
+        let markdown = turndownService.turndown(
+          convertRelativeLinks(results[0], tab.url)
+        );
 
-{title}
-[[{url}]]
-{date} {time}`,
-          }
-        ];
-        chrome.storage.sync.set({actions: defaultActions, isFirstTime: true});
+        let output = parsePlaceholders(action.format, markdown, tab.title, tab.url);
+        let path = parsePlaceholders(action.path, '', tab.title, tab.url);
+
+        // Create the URL to send to Obsidian
+        // let obsidianUrl = 'http://127.0.0.1:8080/new.htm'; // testing
+        let obsidianUrl = 'https://niondevi.github.io/clipsidian/new.htm';
+        obsidianUrl += '?vault=' + encodeURI(action.vault);
+        obsidianUrl += '&file=' + encodeURI(path);
+        obsidianUrl += '&content=' + encodeURI(output);
+        obsidianUrl += `&append=${!action.overwrite}&silent=${!action.openNote}`;
+
+        // Inject the iframe creation code into the current tab
+        document.getElementById('clipsidian-iframe').src = obsidianUrl.toString();
+        setTimeout(() => { document.getElementById('clipsidian-iframe').src = ''; }, 5000);
       }
-    });
+    );
+  });
+});
+chrome.storage.onChanged.addListener((changes, areaName) => {
+  if (areaName === 'sync' && (changes.actions || changes.momentLocale)) {
+    createContextMenus();
   }
-  createContextMenus();
 });
 
-chrome.storage.onChanged.addListener((changes, areaName) => {
-  if (areaName === 'sync' && changes.actions) {
-    createContextMenus();
+
+chrome.runtime.onStartup.addListener(async () => {
+  createContextMenus();
+});
+chrome.runtime.onInstalled.addListener(async (details) => {
+  createContextMenus();
+
+  if (details.reason === 'install') {
+    chrome.tabs.create({ url: chrome.runtime.getURL("options/options.html") }, () => {});
   }
 });
