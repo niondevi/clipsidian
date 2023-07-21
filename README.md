@@ -76,6 +76,7 @@ Example:
 - **Append to note**: The clip will be appended to the existing note at the specified path.
 - **Overwrite note**: The existing note at the specified path will be overwritten with the new clip.
 
+
 ## Date and Time Formatting
 
 The `date` and `time` placeholders in the clipping template can be customized to match your preference by using [moment's](https://momentjs.com/docs/#/displaying/format/) date and time formatting. The placeholders can be used in the following ways:
