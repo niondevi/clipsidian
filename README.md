@@ -50,8 +50,9 @@ By authorizing this specific page, you enable it to handle all subsequent clips,
   <img src="./docs/options.png">
 </p>
 
+With Clipsidian you can setup several clipping actions. Each clipping action will show up in the context (right-click) menu of any selected text in any page, allowing you to easily capture that content in the right folder or note in your vault.
 
-Each clipping action can be configured with the following options:
+Clipping actions can be configured with the following options:
 
 ### Action Name
 
@@ -99,7 +100,7 @@ The `date` and `time` placeholders in the clipping template can be customized to
 - `{time:FORMAT}`: Displays the current time in the specified format.
 	- Example: `{time:hh:mm A}` turns into `12:34 AM`
 
-## Locale
+### Locale
 
 You can also set the locale for date and time formatting in your own language in the options page.
 
@@ -112,15 +113,15 @@ Your data is secure and is only processed within your browser, even during the a
   <img src="./icon/icon48.png">
 </p>
 
-## Support
-
-For any issues, feature requests, or questions, please open an [issue](https://github.com/niondevi/clipsidian/issues).
-
 ## Contributing
 
 We welcome contributions to Clipsidian! 
 
 If you like the project and want to contribute, you can support us on [Patreon](https://www.patreon.com/niondevi) or [Ko-fi](https://ko-fi.com/niondevi).
+
+## Support
+
+For any issues, feature requests, or questions, please open an [issue](https://github.com/niondevi/clipsidian/issues).
 
 ## Acknowledgements
 

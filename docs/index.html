@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clipsidian - The Ultimate Web Clipping Chrome Extension for Obsidian</title>
+  <meta name="description"
+    content="Clipsidian is a Chrome extension designed for Obsidian users. Transform your web-browsing into a powerful research tool by capturing organized web content directly into your Obsidian vault. Discover Clipsidian's key features, learn how to install and use it, and explore how you can contribute to the project.">
+  <link rel="canonical" href="https://niondevi.github.io/clipsidian/" />
+
+  <style>
+    :root {
+      /* Light mode */
+      --background-color: #f5f5f5;
+      --font-color: #444444;
+      --border-color: #A076F7;
+      --secondary-border-color: #D7BBF5;
+      --input-bg-color: #dddddd;
+      --input-focus-color: #6528F7;
+      --input-color: #333333;
+      --button-bg-color: #A076F9;
+      --button-hover-color: #6528F7;
+      --footer-bg-color: #EDE4FF;
+      --link-color: #6528F7;
+      --code-bg-color: #D7BBF5;
+      --code-color: #444444;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        /* Dark mode */
+        --background-color: #333333;
+        --font-color: #ffffff;
+        --border-color: #A076F7;
+        --secondary-border-color: #D7BBF5;
+        --input-bg-color: #444444;
+        --input-focus-color: #6528F7;
+        --input-color: #ffffff;
+        --button-bg-color: #A076F9;
+        --button-hover-color: #6528F7;
+        --footer-bg-color: #444444;
+        --link-color: #D7BBF5;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      text-align: justify;
+    }
+
+    body {
+      background-color: var(--background-color);
+      color: var(--font-color);
+      font-size: 1.05em;
+      font-family: Arial, sans-serif;
+      padding: 0 15px;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      flex-grow: 1;
+      box-shadow: 0 0 2em #000;
+      padding: 3em;
+    }
+
+    @media (max-width: 900px) {
+      .container {
+        padding: 0 10px;
+      }
+    }
+
+    h1,
+    h2,
+    h3 {
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 0.5em;
+      padding-left: 10px;
+    }
+
+    h2 {
+      margin-top: 3em;
+    }
+
+    h3 {
+      border-bottom: 1px solid var(--secondary-border-color);
+      padding: 1em .5em 0;
+    }
+
+    h1 a img {
+      float: right;
+      height: 1em;
+      margin: 0px 0px 0 0;
+      padding: 0px 20px;
+      border: 0;
+      border-radius: 0;
+      filter: invert(20%) sepia(0%) saturate(2680%) hue-rotate(164deg) brightness(92%) contrast(73%);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      h1 a img {
+        filter: invert(1);
+      }
+    }
+
+    h1 a:hover img {
+      filter: invert(24%) sepia(80%) saturate(6603%) hue-rotate(256deg) brightness(94%) contrast(106%);
+    }
+
+    h1 img {
+      float: left;
+      height: 1em;
+      margin: 0px 0px 0 0;
+      padding: 0px 20px;
+      border: 0;
+      border-radius: 0;
+    }
+
+    footer img {
+      height: 1em;
+      position: relative;
+      bottom: -5px;
+      filter: invert(22%) sepia(0%) saturate(0%) hue-rotate(151deg) brightness(103%) contrast(84%);
+    }
+
+    a {
+      color: var(--link-color);
+      text-decoration: underline;
+    }
+
+    a:hover {
+      color: var(--button-bg-color);
+    }
+
+    img {
+      border: 1px solid var(--secondary-border-color);
+      margin: 3em 0 1.5em;
+      border-radius: 3px;
+    }
+
+    input,
+    textarea {
+      background-color: var(--input-bg-color);
+      color: var(--input-color);
+    }
+
+    input:focus,
+    textarea:focus {
+      outline-color: var(--input-focus-color);
+    }
+
+    code {
+      background-color: var(--code-bg-color);
+      color: var(--code-color);
+      font-weight: bold;
+      padding: 0.25em;
+      line-height: 2.5em;
+      border-radius: 2px;
+    }
+
+    button {
+      background-color: var(--button-bg-color);
+      color: var(--font-color);
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: var(--button-hover-color);
+    }
+
+    footer {
+      border-top: 1px solid var(--border-color);
+      background-color: var(--footer-bg-color);
+      padding: 10px;
+      text-align: center;
+    }
+
+    li {
+      line-height: calc(1.6em);
+      margin-top: 1em;
+    }
+
+    li b {
+      font-size: 1.1em;
+    }
+
+    li span {
+      padding: 2px;
+      font-weight: bold;
+    }
+
+    @media (max-width: 900px) {
+      body {
+        padding: 0 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1 alt="Clipsidian Icon">
+      <img src="icon48.png">
+      Clipsidian
+      <a href="https://github.com/niondevi/clipsidian">
+        <img src="icon/ko-fi.svg">
+      </a>
+      <a href="https://www.patreon.com/niondevi">
+        <img src="icon/patreon.svg">
+      </a>
+      <a href="https://ko-fi.com/niondevi">
+        <img src="icon/github.svg">
+      </a>
+    </h1>
+
+    <p>A Chrome extension that makes information gathering easier for Obsidian users. With a simple
+      highlight
+      and click, capture vital web content and send it directly to your <a href="https://obsidian.md/">Obsidian</a>
+      vault with one of many customizable clipping actions. </p>
+    <p>Transform your web-browsing into a streamlined research tool.</p>
+
+    <div style="text-align:center;">
+      <img src="example.gif" alt="Clipsidian Usage Example">
+    </div>
+
+    <h2>Key Features</h2>
+
+    <ul>
+      <li>
+        <b>Customizable Web Clipping</b><br> Easily collect clippings and keep them organized. Define your own clipping
+        actions with Clipsidian, precisely choosing the
+        destination for every web clipping within your many vaults.
+      </li>
+      <li>
+        <b>Dynamic Target Note Paths</b><br> With the ability to use placeholders like <code>{title}</code>,
+        <code>{date}</code>, and <code>{time}</code> in
+        your target note paths, Clipsidian allows for seamless organization of your clippings. This dynamic
+        functionality enables you to save clips to specific notes based on the clipped page or time of clipping.
+      </li>
+      <li>
+        <b>Enriched Clipping Templates</b><br> Auto-embed valuable metadata with placeholders like <code>{date}</code>,
+        <code>{time}</code>, page <code>{title}</code> and page <code>{url}</code> with every web clipping.
+      </li>
+      <li>
+        <b>Flexible Date and Time Formatting</b><br> Customize how the <code>{date}</code> and <code>{time}</code>
+        placeholders appear in your clippings.
+        Clipsidian let's you change the format of your dates and times, including setting the locale to match your
+        language.<br><br>
+        <b>Example</b>: <code>{date:MMM Do, YYYY}</code> turns into <code>January 1st, 2000</code>
+      </li>
+    </ul>
+
+
+
+    <h2>Installation</h2>
+
+    <p>For manual installation please follow these steps:</p>
+
+    <ol>
+      <li>Clone or download the Clipsidian GitHub repository to your local machine.</li>
+      <li>In your Chrome browser, navigate to chrome://extensions.</li>
+      <li>Enable Developer mode by clicking the toggle switch in the upper-right corner.</li>
+      <li>Click on Load unpacked and navigate to the directory where you have downloaded or cloned the Clipsidian
+        repository.</li>
+      <li>Select the folder and click Open to install the extension.</li>
+      <li>Please note, extensions installed in Developer mode will not receive updates automatically. You'll need to
+        manually pull new updates from the GitHub repository and reload the extension in your Chrome browser.</li>
+    </ol>
+
+    <h2>How to Use</h2>
+
+    <ol>
+      <li><b>Configure your actions</b>: Open the Clipsidian extension options in your Chrome browser and set
+        up
+        your clipping actions.</li>
+      <li><b>Highlight the content</b>: In your web browser, select the content you want to add to your
+        Obsidian
+        vault.</li>
+      <li><b>Access the context menu</b>: Right-click on the highlighted content.</li>
+      <li><b>Select the relevant action</b>: From the context menu, select an action. Obsidian should open (if
+        it isn't already open) and your clipping should be saved!</li>
+    </ol>
+
+    <h3>First Time Authorization (Obsidian URI)</h3>
+
+    <p>For first-time users, you will need to authorize the page at <a
+        href="https://niondevi.github.io/clipsidian/new.htm">https://niondevi.github.io/clipsidian/new.htm</a> to open
+      Obsidian. This authorization is a necessary workaround due to how Chrome handles URI requests. Without this step,
+      Chrome would require you to authorize each individual page from which you want to clip content, which can be
+      inconvenient and time-consuming.</p>
+
+    <p>By authorizing this specific page, you enable it to handle all subsequent clips, thus avoiding repeated
+      authorization requests. This authorization only happens once, streamlining your clipping process. When handling
+      subsequent clips, any data (like the content to be clipped) that's passed as URL parameters to that page is not
+      sent
+      to a server but is instead handled entirely within your browser.</p>
+
+    <h2>Configuring Clipping Actions</h2>
+
+    <div style="text-align:center;">
+      <img src="options.png" alt="Configuration options for clipping actions">
+    </div>
+
+    <p>Effortlessly save and organize your digital snippets with our easy-to-use Clipping Actions feature! Tailor your
+      clipping process to suit your needs using customizable options and dynamic template strings.</p>
+
+    <p>Take full control of date and time strings with formatting options and language settings.
+      <a href="https://github.com/niondevi/clipsidian#configuring-clipping-actions">Learn more about Configuring
+        Clipping Actions here</a>.
+    </p>
+
+    <h2>Data Safety</h2>
+
+    <p>Your data is secure and is only processed within your browser. Clipsidian doesn't
+      send, track, or store any of your details. If you still have any doubts, you or someone you trust could always
+      take
+      a look at the code (<a href="https://github.com/niondevi/clipsidian">it's open source!</a>), just to make sure
+      everything's clear. As an open-source
+      project, Clipsidian is built on full
+      transparency.</p>
+
+    <h2>Contributing</h2>
+
+    <p>We welcome contributions to Clipsidian!</p>
+
+    <p>If you like the project and want to contribute, you can support me on <a
+        href="https://www.patreon.com/niondevi">Patreon</a> or <a href="https://ko-fi.com/niondevi">Ko-fi</a>.</p>
+
+    <p>For any issues, feature requests, or questions, please open an <a
+        href="https://github.com/niondevi/clipsidian/issues">issue</a> on our <a
+        href="https://github.com/niondevi/clipsidian">GitHub</a>.</p>
+
+    <div style="text-align:center;">
+      <img src="icon48.png" style="border:0;" alt="Clipsidian Icon">
+    </div>
+
+
+  </div>
+
+</body>
+
+</html>
