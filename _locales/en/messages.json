@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Clipsidian",
+    "description": "The name of the extension, displayed in the web store."
+  },
+  "appDesc": {
+    "message": "Clipsidian lets you capture in-browser selected content and send it directly to your Obsidian vault.",
+    "description": "The description of the extension, displayed in the web store."
+  }
+}

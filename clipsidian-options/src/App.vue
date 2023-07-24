@@ -440,10 +440,9 @@ export default {
       const { name, vault, path, format, overwrite, openNote } = action;
 
       // Prepare data for placeholders
-      const clip = "This is a test paragraph. It serves as a mock clipping for our demonstration. " +
-        "The purpose of this test is to ensure that the \"" + name + "\" action is functioning correctly.";
+      const clip = `This is a test. The purpose of this test is to ensure that the "${name}" action is functioning correctly.`;
       const title = "Clipsidian Options";
-      const url = "https://example.com/";
+      const url = "https://niondevi.github.io/clipsidian/";
 
       // Parse placeholders in format
       const content = parsePlaceholders(format, clip, title, url);

@@ -14,6 +14,10 @@
           <span>{time:hh:mm A}</span> turns into something like <span>12:34 AM</span><br>
         </div>
         <br>
+        The outputs examples below are provided in english, but the date/time in your clippings will be shown in the "Date
+        and time locale"
+        setting in the options panel.<br>
+        <br><br>
       </div>
       <table class="date-time-table">
         <tbody>
