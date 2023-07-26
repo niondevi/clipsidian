@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Clipsidian Tab Config</title>
+
+  <link rel="icon" type="image/png" sizes="32x32" href="fav/icon32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="fav/icon16.png">
+
+  <meta http-equiv="Cache-Control" content="public, max-age=86400" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f5f5f5;
+      color: #555555;
+      margin: 8px 0;
+    }
+
+    p {
+      font-size: 0.9em;
+      margin-bottom: 0;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-color: #333333;
+        color: #ffffff;
+      }
+    }
+
+    input[type="checkbox"] {
+      display: none;
+    }
+
+    input[type="checkbox"]+label {
+      font-size: 1.1em;
+      display: block;
+      position: relative;
+      padding-left: 35px;
+      margin-bottom: 20px;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+    }
+
+    input[type="checkbox"]+label {
+      text-decoration: none;
+    }
+
+    input[type="checkbox"]:checked+label {
+      text-decoration: none;
+    }
+
+    input[type="checkbox"]+label:last-child {
+      margin-bottom: 0;
+    }
+
+    input[type="checkbox"]+label:before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 20px;
+      border: 2px solid #D7BBF5;
+      position: absolute;
+      left: 0;
+      top: -0.25em;
+      opacity: 1;
+      -webkit-transition: all .12s, border-color .08s;
+      transition: all .12s, border-color .08s;
+      background: transparent;
+      border-radius: 2px;
+    }
+
+    input[type="checkbox"]:checked+label:before {
+      width: 7px;
+      height: 25px;
+      top: -10px;
+      left: 10px;
+      border-radius: 2px;
+      opacity: 1;
+      border-color: #A076F9;
+      border-top-color: transparent;
+      border-left-color: transparent;
+      -webkit-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <input type="checkbox" id="closeNextTime" name="closeNextTime" onchange="toggleCloseNextTime()">
+    <label for="closeNextTime">Close "Clipping to Obsidian..." tab automatically <span
+        style="color:#A076F9;">*</span></label>
+    <p>
+      <span style="color:#A076F9;">*</span> Only enable this if you have checked <br>
+      <b style="padding:10px;display:inline-block;">'Always allow https://niondevi.github.io to open links of this type
+        in the
+        associated
+        app'</b><br>
+      &nbsp;&nbsp;&nbsp;otherwise Clipsidian will fail to send your content to Obsidian.
+    </p>
+  </div>
+  <script>
+    function toggleCloseNextTime() {
+      var closeNextTime = document.getElementById('closeNextTime').checked;
+      localStorage.setItem('closeNextTime', closeNextTime);
+    }
+    let def = (localStorage.getItem('closeNextTime') === null ? false : (localStorage.getItem('closeNextTime') === 'true'));
+    document.getElementById('closeNextTime').checked = def;
+    localStorage.setItem('closeNextTime', def);
+  </script>
+</body>
+
+</html>

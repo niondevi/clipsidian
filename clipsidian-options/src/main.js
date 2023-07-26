@@ -1,8 +1,8 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 
-import MomentModal from './components/MomentModal.vue'
+import LuxonModal from './components/LuxonModal.vue'
 
 var app = createApp(App);
-app.component('MomentModal', MomentModal)
+app.component('LuxonModal', LuxonModal)
 app.mount('#app')

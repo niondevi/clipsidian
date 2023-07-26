@@ -1,14 +1,15 @@
 <template>
   <div id="app">
     <h1><img src="/icon/icon48.png"> Clipsidian Options</h1>
-    <div class=" header">
-      <h2>⏩︎ Clipping Actions</h2>
+    <div class=" frame">
+      <h2><b>✂︎</b> Clipping Actions</h2>
     </div>
-    <div class="header">
-      <div class="header-content">
-        <p>Manage your list of actions here. Click on "Add Action" to add a new action to the list.</p>
+    <div class="frame">
+      <div class="frame-content">
+        <p style="margin: 0;">Each Clipping Action shows up in the context<br>
+          menu when you right-click selected content in browser.</p>
       </div>
-      <button @click="addAction">➕︎ Add Action</button>
+      <button @click="addAction">➕︎ New Action</button>
     </div>
     <div v-for="(action, index) in actions" :key="index + '' + editingIndex" class="action"
       :class="{ editing: action.isEditing }">
@@ -46,24 +47,22 @@
                 <div class="help">
                   <div class="inner">
                     Enter the path of the note within the vault where the clippings should be saved.<br>
-                    You can use placeholders to name and refer to notes dynamically.<br>
                     <br>
                     <b>Placeholders</b><br>
                     <ul>
                       <li>
                         <span>{title}</span> The title of the webpage
                       </li>
-                      <li><span>{date}</span> Current date in YYYY-MM-DD</li>
+                      <li><span>{date}</span> Current date in yyyy-LL-DD</li>
                       <li><span>{time}</span> Current time in HH:mm:ss</li>
+                      <li><span>{date:FORMAT}</span> Current date with custom format</li>
+                      <li><span>{time:FORMAT}</span> Current time with custom format</li>
+                    </ul>
+                    <ul>
+                      <li><a href="#" @click="showLuxonModal = true">📋︎ Date / Time Format Reference</a></li>
                     </ul>
 
-                    <b>Date / Time Formatting</b><br>
-                    <ul>
-                      <li>You can format date and time with <span>{date:FORMAT}</span> or <span>{time:FORMAT}</span> where
-                        <span>FORMAT</span> is a valid <a href="#" @click="showMomentModal = true">moment format
-                          string</a>.
-                      </li>
-                    </ul>
+
                   </div>
                 </div>
               </td>
@@ -77,7 +76,7 @@
                   placeholder="Enter clipping formatting" rows="10"></textarea>
                 <div class="help">
                   <div class="inner">
-                    Enter the template for clipping formatting. You can use the following placeholders.<br>
+                    Enter the template for clipping formatting.<br>
                     <br>
                     <b>Placeholders</b><br>
                     <ul>
@@ -88,16 +87,13 @@
                         <span>{title}</span> The title of the webpage
                       </li>
                       <li><span>{url}</span> The URL of the webpage</li>
-                      <li><span>{date}</span> Current date in YYYY-MM-DD</li>
+                      <li><span>{date}</span> Current date in yyyy-LL-DD</li>
                       <li><span>{time}</span> Current time in HH:mm:ss</li>
+                      <li><span>{date:FORMAT}</span> Current date with custom format</li>
+                      <li><span>{time:FORMAT}</span> Current time with custom format</li>
                     </ul>
-
-                    <b>Date / Time Formatting</b><br>
                     <ul>
-                      <li>You can format date and time with <span>{date:FORMAT}</span> or <span>{time:FORMAT}</span> where
-                        <span>FORMAT</span> is a valid <a href="#" @click="showMomentModal = true">moment format
-                          string</a>.
-                      </li>
+                      <li><a href="#" @click="showLuxonModal = true">📋︎ Date / Time Format Reference</a></li>
                     </ul>
                   </div>
                 </div>
@@ -141,11 +137,20 @@
       </div>
     </div>
 
-    <div class=" header">
+
+
+
+    <div class="frame">
       <h2><span style="font-weight: normal;">🕐︎</span> Date / Time Formatting</h2>
     </div>
     <div class="action datetime">
       <table class="form">
+        <tr>
+          <td>
+            <button @click="showLuxonModal = true" style="float:right;">📋︎ Format Reference</button>
+            <p style="margin:7px 0;">Learn more about Date / Time formatting by checking the reference</p>
+          </td>
+        </tr>
         <tr>
           <td>
             <select v-model="selectedLocale" @change="saveLocale">
@@ -293,15 +298,50 @@
       </table>
     </div>
 
+    <div class=" frame">
+      <h2><span style="font-weight: normal;">🔐︎</span> Permissions</h2>
+    </div>
+    <div class=" frame">
+      <table class="permission">
+        <tr>
+          <td>
+            Due to the way the <a href="https://help.obsidian.md/Advanced+topics/Using+Obsidian+URI"
+              target="_blank">Obsidian URI</a> is
+            processed by the browser, we use a script hosted at Clipsidian's
+            <a href="https://github.com/niondevi/clipsidian/" target="_blank">Github Page</a> to
+            seamlessly
+            capture content without having to enable permissions for the sites you visit, while still respecting your
+            privacy.<br>
+            <br>
+            <span style="font-size: 0.9em;">For more information and transparency, check <a
+                href="https://github.com/niondevi/clipsidian" target="_blank">Clipsidian's
+                repo at Github</a>.</span><br>
+          </td>
+          <td>
+            <button @click="testPermission">❓︎ Test Permission</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="action">
+      <table class="form">
+        <tr>
+          <td>
+            <iframe src="https://niondevi.github.io/clipsidian/config.htm" frameborder="0"></iframe>
+          </td>
+        </tr>
+      </table>
+    </div>
+
     <footer>
       <img src="/icon/icon48.png">
       <span class="left">Do you like Clipsidian? Consider contributing!</span>
       <span class="right">
-        <a href="https://github.com/niondevi/clipsidian" title="GitHub" target="_blank"><img src="icon/github.svg">
-          GitHub</a>
+        <a href="https://ko-fi.com/niondevi" title="Ko-fi" target="_blank"><img src="icon/ko-fi.svg"> Ko-fi</a>
         <a href="https://www.patreon.com/niondevi" title="Patreon" target="_blank"><img src="icon/patreon.svg">
           Patreon</a>
-        <a href="https://ko-fi.com/niondevi" title="Ko-fi" target="_blank"><img src="icon/ko-fi.svg"> Ko-fi</a>
+        <a href="https://github.com/niondevi/clipsidian" title="GitHub" target="_blank"><img src="icon/github.svg">
+          GitHub</a>
       </span>
     </footer>
     <footer>
@@ -311,11 +351,13 @@
       <a href="https://www.svgrepo.com/svg/341974/ko-fi"> Ko-fi icon by coreui</a>
     </footer>
   </div>
-  <MomentModal v-model="showMomentModal"></MomentModal>
+  <LuxonModal v-model="showLuxonModal" :currentLocale="selectedLocale"></LuxonModal>
 </template>
 
 <script>
-/* global chrome, moment */
+/* global chrome */
+
+import { DateTime } from '../../lib/luxon.min.js';
 
 import {
   ref,
@@ -330,7 +372,7 @@ export default {
 
   setup() {
 
-    var showMomentModal = ref(false);
+    var showLuxonModal = ref(false);
 
     const defaultLocale = 'en'; // set your default locale
     const selectedLocale = ref(defaultLocale);
@@ -347,7 +389,7 @@ export default {
 {clip}
 
 [{title}]({url})
-{date:MMM Do YY} {time}`,
+{date} {time}`,
       overwrite: false, // 'false' for 'Append to note'
       openNote: true
     }
@@ -405,24 +447,23 @@ export default {
 
     const parsePlaceholders = (format, clip, title, url) => {
       let output = format;
-      clip = encodeURIComponent(clip)
-      title = encodeURIComponent(title)
-      url = encodeURIComponent(url)
-
+      clip = encodeURIComponent(clip);
+      title = encodeURIComponent(title);
+      url = encodeURIComponent(url);
 
       const replaceDateTime = (pattern, defaultFormat) => {
         let re = new RegExp(`{${pattern}:(.*?)}`, 'g');
         let match = re.exec(output);
         while (match != null) {
-          output = output.replace(match[0], moment().format(match[1]));
+          output = output.replace(match[0], DateTime.now().setLocale(selectedLocale.value).toFormat(match[1]));
           match = re.exec(output);
         }
         output = output.replace(new RegExp(`{${pattern}}`, 'g'), defaultFormat);
       }
 
       // Replace {date}, {date:FORMAT}, {time}, {time:FORMAT}
-      replaceDateTime('date', () => moment().format('YYYY-MM-DD'));
-      replaceDateTime('time', () => moment().format('HH:mm:ss'));
+      replaceDateTime('date', () => DateTime.now().setLocale(selectedLocale.value).toFormat('yyyy-LL-dd'));
+      replaceDateTime('time', () => DateTime.now().setLocale(selectedLocale.value).toFormat('HH:mm:ss'));
 
       // Replace {clip} with the provided clip string
       output = output.replace(/{clip}/g, clip);
@@ -434,13 +475,13 @@ export default {
       output = output.replace(/{url}/g, url);
 
       return output;
-    };
+    }
 
     const testAction = (action) => {
       const { name, vault, path, format, overwrite, openNote } = action;
 
       // Prepare data for placeholders
-      const clip = `This is a test. The purpose of this test is to ensure that the "${name}" action is functioning correctly.`;
+      const clip = `This is a test. The purpose of this test is to ensure that ${name} is functioning correctly.`;
       const title = "Clipsidian Options";
       const url = "https://niondevi.github.io/clipsidian/";
 
@@ -449,8 +490,7 @@ export default {
       const dynPath = parsePlaceholders(path, '', title, url);
 
       // Construct the URL
-      // let obsidianUrl = 'http://127.0.0.1:8080/new.htm'; // testing
-      let obsidianUrl = 'https://niondevi.github.io/clipsidian/new.htm';
+      let obsidianUrl = 'https://niondevi.github.io/clipsidian/clip.htm';
       obsidianUrl += '?vault=' + encodeURI(vault);
       obsidianUrl += '&file=' + encodeURI(dynPath);
       obsidianUrl += '&content=' + encodeURI(content);
@@ -518,31 +558,43 @@ export default {
     });
 
     onMounted(() => {
-      chrome.storage.sync.get('momentLocale', function (items) {
-        if (!items.momentLocale) {
-          let defaultLocale = navigator.languages && navigator.languages.length ? navigator.languages[0] : navigator.language;
-          defaultLocale = defaultLocale.toLowerCase();
+      chrome.storage.sync.get('luxonLocale', function (items) {
+        if (!items.luxonLocale) {
+          let defLocale = navigator.languages && navigator.languages.length ? navigator.languages[0] : navigator.language;
+          defLocale = defLocale.toLowerCase();
 
-          chrome.storage.sync.set({ 'momentLocale': defaultLocale });
+          chrome.storage.sync.set({ 'luxonLocale': defLocale });
 
-          selectedLocale.value = defaultLocale;
+          selectedLocale.value = defLocale;
         }
         else {
-          selectedLocale.value = items.momentLocale.toLowerCase();
+          selectedLocale.value = items.luxonLocale.toLowerCase();
         }
-        moment.locale(selectedLocale.value);
       });
     });
 
     const saveLocale = () => {
-      chrome.storage.sync.set({ 'momentLocale': selectedLocale.value });
-      moment.locale(selectedLocale.value);
+      chrome.storage.sync.set({ 'luxonLocale': selectedLocale.value });
     };
 
 
     onBeforeUnmount(async () => {
       await saveActions();
     });
+
+    const testPermission = () => {
+      let vaultName = prompt('Enter a vault name for the test:');
+      if (vaultName && vaultName.trim().length) {
+        testAction({
+          name: 'the necessary permission',
+          vault: vaultName,
+          path: 'ClipsidianTest',
+          format: '{clip}',
+          overwrite: true,
+          openNote: true
+        });
+      }
+    }
 
     return {
       actions,
@@ -553,7 +605,8 @@ export default {
       testAction,
       selectedLocale,
       saveLocale,
-      showMomentModal,
+      showLuxonModal,
+      testPermission
     };
   },
 };

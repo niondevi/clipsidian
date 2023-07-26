@@ -1,33 +1,18 @@
-const turndownService = new TurndownService();
+import {DateTime} from './lib/luxon.min.js';
 
-const getSelectionHtml = () => {
-  var html = "";
-  if (typeof window.getSelection != "undefined") {
-    var sel = window.getSelection();
-    if (sel.rangeCount) {
-      var container = document.createElement("div");
-      for (var i = 0, len = sel.rangeCount; i < len; ++i) {
-        container.appendChild(sel.getRangeAt(i).cloneContents());
-      }
-      html = container.innerHTML;
-    }
-  } else if (typeof document.selection != "undefined") {
-    if (document.selection.type == "Text") {
-      html = document.selection.createRange().htmlText;
-    }
-  }
-  return html;
-}
+var locale = 'en'
+
+
 const createContextMenus = () => {
   chrome.contextMenus.removeAll(() => {
-    chrome.storage.sync.get(['actions', 'momentLocale'], (data) => {
+    chrome.storage.sync.get(['actions', 'luxonLocale'], (data) => {
 
-      if (data.momentLocale) {
-        moment.locale(data.momentLocale.toLowerCase());
+      if (data.luxonLocale) {
+        locale = data.luxonLocale.toLowerCase();
       }
       else {
         let defaultLocale = navigator.languages && navigator.languages.length ? navigator.languages[0] : navigator.language;
-        moment.locale(defaultLocale.toLowerCase());
+        locale = defaultLocale.toLowerCase();
       }
   
       (data.actions || []).forEach((action, index) => {
@@ -40,54 +25,26 @@ const createContextMenus = () => {
     });
   });
 }
-const convertRelativeLinks = (str, baseUrl) => {
-  let parser = new DOMParser();
-  let doc = parser.parseFromString(str, "text/html");
-  
-  let urlAttributes = ['href', 'src', 'srcset', 'data', 'action', 'cite'];
-  
-  urlAttributes.forEach(attribute => {
-    let elements = doc.querySelectorAll(`[${attribute}]`);
-    elements.forEach(el => {
-      let attrValue = el.getAttribute(attribute);
-      if(attrValue) {
-        let parts = attrValue.split(',');
-        let newParts = parts.map(part => {
-          let url = part.trim().split(' ')[0];
-          try {
-            new URL(url);
-            return part;
-          } catch(e) {
-            return part.replace(url, new URL(url, baseUrl).toString());
-          }
-        });
-        el.setAttribute(attribute, newParts.join(', '));
-      }
-    });
-  });
-  
-  return doc.body.innerHTML;
-}
+
 const parsePlaceholders = (format, clip, title, url) => {
   let output = format;
   clip = encodeURIComponent(clip)
   title = encodeURIComponent(title)
   url = encodeURIComponent(url)
 
-
   const replaceDateTime = (pattern, defaultFormat) => {
     let re = new RegExp(`{${pattern}:(.*?)}`, 'g');
     let match = re.exec(output);
     while (match != null) {
-      output = output.replace(match[0], moment().format(match[1]));
+      output = output.replace(match[0], DateTime.now().toFormat(match[1]));
       match = re.exec(output);
     }
     output = output.replace(new RegExp(`{${pattern}}`, 'g'), defaultFormat);
   }
 
   // Replace {date}, {date:FORMAT}, {time}, {time:FORMAT}
-  replaceDateTime('date', () => moment().format('YYYY-MM-DD'));
-  replaceDateTime('time', () => moment().format('HH:mm:ss'));
+  replaceDateTime('date', () => DateTime.now().toFormat('yyyy-LL-dd'));
+  replaceDateTime('time', () => DateTime.now().toFormat('HH:mm:ss'));
 
   // Replace {clip} with the provided clip string
   output = output.replace(/{clip}/g, clip);
@@ -101,51 +58,59 @@ const parsePlaceholders = (format, clip, title, url) => {
   return output;
 }
 
+
 chrome.contextMenus.onClicked.addListener((info, tab) => {
   const actionIndex = parseInt(info.menuItemId);
-  chrome.storage.sync.get('actions', (data) => {
+  chrome.storage.sync.get('actions', async (data) => {
 
     const action = data.actions[actionIndex];
-    chrome.tabs.executeScript(
-      tab.id,
-      { code: '(' + getSelectionHtml.toString() + ')();' },
-      async (results) => {
 
-        let markdown = turndownService.turndown(
-          convertRelativeLinks(results[0], tab.url)
-        );
+    const selectListener = (request) => {
+      if (request.msg === 'selected_text') {
+
+        let markdown = request.text;
 
         let output = parsePlaceholders(action.format, markdown, tab.title, tab.url);
         let path = parsePlaceholders(action.path, '', tab.title, tab.url);
 
-        // Create the URL to send to Obsidian
-        // let obsidianUrl = 'http://127.0.0.1:8080/new.htm'; // testing
-        let obsidianUrl = 'https://niondevi.github.io/clipsidian/new.htm';
-        obsidianUrl += '?vault=' + encodeURI(action.vault);
-        obsidianUrl += '&file=' + encodeURI(path);
-        obsidianUrl += '&content=' + encodeURI(output);
-        obsidianUrl += `&append=${!action.overwrite}&silent=${!action.openNote}`;
+        let authorizedUrl = 'https://niondevi.github.io/clipsidian/clip.htm';
+        authorizedUrl += '?vault=' + encodeURI(action.vault);
+        authorizedUrl += '&file=' + encodeURI(path);
+        authorizedUrl += '&content=' + encodeURI(output);
+        authorizedUrl += `&append=${!action.overwrite}&silent=${!action.openNote}`;
 
-        // Inject the iframe creation code into the iframe
-        document.getElementById('clipsidian-iframe').src = obsidianUrl.toString();
+        console.log(authorizedUrl)
+
+        chrome.tabs.create({
+          url: authorizedUrl,
+          active: false,
+        });
+        
+        chrome.runtime.onMessage.removeListener(selectListener);
       }
-    );
+    };
+    chrome.runtime.onMessage.addListener(selectListener);
+
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+      chrome.tabs.sendMessage(tabs[0].id, {msg: 'get_selected_text'});
+    });
+
   });
 });
 chrome.storage.onChanged.addListener((changes, areaName) => {
-  if (areaName === 'sync' && (changes.actions || changes.momentLocale)) {
+  if (areaName === 'sync' && (changes.actions || changes.luxonLocale)) {
     createContextMenus();
   }
 });
 
-
-chrome.runtime.onStartup.addListener(async () => {
+self.addEventListener('activate', async (event) => {
   createContextMenus();
 });
-chrome.runtime.onInstalled.addListener(async (details) => {
+
+self.addEventListener('install', async (event) => {
   createContextMenus();
 
-  if (details.reason === 'install') {
-    chrome.tabs.create({ url: chrome.runtime.getURL("options/options.html") }, () => {});
-  }
+  event.waitUntil(
+    chrome.tabs.create({ url: chrome.runtime.getURL("options/options.html") }, () => {})
+  );
 });

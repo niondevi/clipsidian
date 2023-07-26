@@ -1,5 +1,5 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Clipsidian",
   "version": "1.0.0",
   "default_locale": "en",
@@ -14,15 +14,44 @@
     "contextMenus",
     "tabs",
     "storage",
-    "<all_urls>"
+    "scripting"
+  ],
+  "host_permissions": [
+    "*://*/*"
   ],
   "background": {
-    "page": "background.html",
-    "persistent": false
+    "service_worker": "background.js",
+    "type": "module"
   },
   "options_page": "options/options.html",
+  "action": {
+    "default_icon": {
+      "16": "icon/icon16.png",
+      "48": "icon/icon48.png",
+      "128": "icon/icon128.png"
+    }
+  },
   "web_accessible_resources": [
-    "lib/moment.min.js",
-    "icon/icon48.png"
+    {
+      "resources": [
+        "icon/icon48.png"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*",
+        "<all_urls>"
+      ],
+      "js": [
+        "lib/turndown.js",
+        "contentScript.js"
+      ]
+    }
   ]
 }

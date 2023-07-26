@@ -38,7 +38,7 @@ To use Clipsidian, follow these steps:
 
 ### First Time Authorization (Obsidian URI)
 
-For first-time users, you will need to authorize the page at https://niondevi.github.io/clipsidian/new.htm to open Obsidian. This authorization is a necessary workaround due to how Chrome handles URI requests. Without this step, Chrome would require you to authorize each individual page from which you want to clip content, which can be inconvenient and time-consuming.
+For first-time users, you will need to authorize the page at https://niondevi.github.io/clipsidian/clip.htm to open Obsidian. This authorization is a necessary workaround due to how Chrome handles URI requests. Without this step, Chrome would require you to authorize each individual page from which you want to clip content, which can be inconvenient and time-consuming.
 
 By authorizing this specific page, you enable it to handle all subsequent clips, thus avoiding repeated authorization requests. This authorization only happens once, streamlining your clipping process. When handling subsequent clips, any data (like the content to be clipped) that's passed as URL parameters to that page is not sent to a server but is instead handled entirely within your browser.
 
@@ -93,12 +93,12 @@ The `date` and `time` placeholders in the clipping template can be customized to
 - `{date}`: Displays the current date in `YYYY-MM-DD` format.
 
 - `{date:FORMAT}`: Displays the current date in the specified format.
-	- Example: `{date:MMM Do, YYYY}` turns into `January 1st, 2000`
+	- Example: `{date:LLLL dd, yyyy}` turns into `January 1, 2023`
 
 - `{time}`: Displays the current time in `HH:mm:ss` format.
 
 - `{time:FORMAT}`: Displays the current time in the specified format.
-	- Example: `{time:hh:mm A}` turns into `12:34 AM`
+	- Example: `{time:hh:mm a}` turns into `01:23 AM`
 
 ### Locale
 
