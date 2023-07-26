@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Clipping to Obsidian...</title>
+
+  <link rel="icon" type="image/png" sizes="32x32" href="fav/icon32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="fav/icon16.png">
+
+  <meta http-equiv="Cache-Control" content="public, max-age=86400" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    * {
+      font-family: sans-serif;
+      background: #A076F7;
+      color: #fff;
+    }
+
+    #spin {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      border: 4px dashed transparent;
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    iframe {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+    <h1>Clipping to Obsidian...</h1>
+    <div id="spin"></div>
+    <p>If this is your first time using Clipsidian, please check the option:</p>
+    <b>Always allow https://niondevi.github.io to open links of this type in the associated
+      app</b>
+    <p>This ensures that your selected content can be directly clipped into your Obsidian notes without this prompt
+      appearing every time.</p>
+    <div>
+      <br><br>
+      <input type="checkbox" id="closeNextTime" name="closeNextTime" onchange="toggleCloseNextTime()">
+      <label for="closeNextTime"><i>I have allowed this page to open Obsidian links,<br>please close this tab
+          automatically next time.</i></label>
+    </div>
+  </div>
+  <script>
+    var e = new URLSearchParams(location.search),
+      t = encodeURI(e.get("vault")),
+      n = encodeURI(e.get("file")),
+      a = e.get("append"),
+      r = (e.get("overwrite"), e.get("silent")),
+      o = "obsidian://new?vault=" + t + "&file=" + n + "&content=" + e.get("content").replace(/\n/g, "%0A") + ("true" == a ? "&append" : "&overwrite") + ("true" == r ? "&silent" : "");
+
+    var iframe = document.createElement('iframe');
+    iframe.src = o;
+    document.body.appendChild(iframe);
+
+    if (localStorage.getItem('closeNextTime') === 'true') {
+      setTimeout(() => {
+        window.close();
+      }, 1);
+    }
+
+    function toggleCloseNextTime() {
+      var closeNextTime = document.getElementById('closeNextTime').checked;
+      localStorage.setItem('closeNextTime', closeNextTime);
+    }
+    document.getElementById('closeNextTime').checked = (localStorage.getItem('closeNextTime') === 'true');
+
+  </script>
+</body>
+
+</html>
