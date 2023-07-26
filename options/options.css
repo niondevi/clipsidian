@@ -46,6 +46,11 @@ h2 {
   width: 100%;
   border-bottom: 2px dashed #D7BBF5;
   margin-bottom: 20px;
+  line-height: 1em;
+}
+
+h2 span {
+  vertical-align: text-top;
 }
 
 .frame {

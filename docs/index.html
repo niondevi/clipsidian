@@ -78,7 +78,7 @@
     h1,
     h2,
     h3 {
-      border-bottom: 2px solid var(--border-color);
+      border-bottom: 2px dashed var(--border-color);
       padding-bottom: 0.5em;
       padding-left: 10px;
     }
@@ -88,7 +88,7 @@
     }
 
     h3 {
-      border-bottom: 1px solid var(--secondary-border-color);
+      border-bottom: 1px dashed var(--secondary-border-color);
       padding: 1em .5em 0;
     }
 
@@ -211,34 +211,34 @@
     <h1 alt="Clipsidian Icon">
       <img src="icon/icon48.png">
       Clipsidian
-      <a href="https://github.com/niondevi/clipsidian">
-        <img src="icon/ko-fi.svg">
+      <a href="https://ko-fi.com/niondevi" target="_blank">
+        <img src="icon/github.svg">
       </a>
-      <a href="https://www.patreon.com/niondevi">
+      <a href="https://www.patreon.com/niondevi" target="_blank">
         <img src="icon/patreon.svg">
       </a>
-      <a href="https://ko-fi.com/niondevi">
-        <img src="icon/github.svg">
+      <a href="https://github.com/niondevi/clipsidian" target="_blank">
+        <img src="icon/ko-fi.svg">
       </a>
     </h1>
 
-    <p>A Chrome extension that makes information gathering easier for Obsidian users. With a simple
-      highlight
-      and click, capture vital web content and send it directly to your <a href="https://obsidian.md/">Obsidian</a>
-      vault with one of many customizable clipping actions. </p>
-    <p>Transform your web-browsing into a streamlined research tool.</p>
-
-    <div style="text-align:center;">
-      <img src="example.gif" alt="Clipsidian Usage Example">
+    <div style="padding:0 2em;">
+      <br>
+      <p>A Chrome extension that makes information gathering easier for Obsidian users. With a simple
+        highlight
+        and click, capture vital web content and send it directly to your <a href="https://obsidian.md/"
+          target="_blank">Obsidian</a>
+        vault with one of many customizable clipping actions. </p>
+      <p>Transform your web-browsing into a streamlined research tool.</p>
     </div>
 
     <h2>Key Features</h2>
 
     <ul>
       <li>
-        <b>Customizable Web Clipping</b><br> Easily collect clippings and keep them organized. Define your own clipping
-        actions with Clipsidian, precisely choosing the
-        destination for every web clipping within your many vaults.
+        <b>Customizable Clipping Actions</b><br> Create multiple clipping actions with Clipsidian, precisely choosing
+        how to save every web clipping within your vaults.<br>
+        Each clipping action you create is added to the context (right click) menu of selected content in web pages.
       </li>
       <li>
         <b>Dynamic Target Note Paths</b><br> With the ability to use placeholders like <code>{title}</code>,
@@ -255,7 +255,15 @@
         placeholders appear in your clippings.
         Clipsidian let's you change the format of your dates and times, including setting the locale to match your
         language.<br><br>
-        <b>Example</b>: <code>{date:LLLL dd, yyyy}</code> turns into <code>January 1, 2000</code>
+        <b>Date Example</b>: <code>{date:LLLL dd, yyyy}</code> turns into <code>January 1, 2000</code><br>
+        <b>Time Example</b>: <code>{time:hh:mm a}</code> turns into <code>01:23 AM</code><br>
+        <br>
+        Date / Time formatting tokens are from the <a
+          href="https://moment.github.io/luxon/#/formatting?id=table-of-tokens" target="_blank">Luxon library</a>.
+      </li>
+      <li>
+        <b>Clipping Action Behaviour</b><br> You can choose whether you want to append or overwrite the note with your
+        clipped content.
       </li>
     </ul>
 
@@ -266,8 +274,9 @@
     <p>For manual installation please follow these steps:</p>
 
     <ol>
-      <li>Clone or download the Clipsidian GitHub repository to your local machine.</li>
-      <li>In your Chrome browser, navigate to chrome://extensions.</li>
+      <li>Clone or download the Clipsidian <a href="https://github.com/niondevi/clipsidian" target="_blank">GitHub
+          repository</a> to your local machine.</li>
+      <li>In your browser, open your extensions manager.</li>
       <li>Enable Developer mode by clicking the toggle switch in the upper-right corner.</li>
       <li>Click on Load unpacked and navigate to the directory where you have downloaded or cloned the Clipsidian
         repository.</li>
@@ -278,6 +287,10 @@
 
     <h2>How to Use</h2>
 
+    <div style="text-align:center;">
+      <img src="img/example.gif" alt="Clipsidian Usage Example">
+    </div>
+
     <ol>
       <li><b>Configure your actions</b>: Open the Clipsidian extension options in your Chrome browser and set
         up
@@ -286,63 +299,91 @@
         Obsidian
         vault.</li>
       <li><b>Access the context menu</b>: Right-click on the highlighted content.</li>
-      <li><b>Select the relevant action</b>: From the context menu, select an action. Obsidian should open (if
-        it isn't already open) and your clipping should be saved!</li>
+      <li><b>Select the relevant action</b>: From the context menu, select a clipping action. The "Clipping to
+        Obsidian..." tab should open.
+        <div style="text-align:center;">
+          <img src="img/clippingtotab.png" alt="Clipsidian Usage Example">
+        </div>
+      </li>
+      <li><b>Allow Clipsidian to open Obsidian</b>: If it's the first time you're using Clipsidian, read below on how to
+        authorize it to open your Obsidian. After that your note should be saved in Obsidian!
+      </li>
+      <li><b>The clipping is saved!</b>: Obsidian should open as a sign it received your clipping, and after that your
+        clipping should be saved!
+      </li>
     </ol>
 
+
+
+
     <h3>First Time Authorization (Obsidian URI)</h3>
+    <div style="text-align:center;">
+      <img src="img/openobsidiandialog.png" alt="Clipsidian Usage Example">
+    </div>
+    <div style="padding:0 2em;">
+      <p>For first-time users, you will need to authorize Clipsidian to open <a
+          href="https://help.obsidian.md/Advanced+topics/Using+Obsidian+URI" target="_blank">Obsidian URI</a> links.<br>
+        This authorization is necessary due to how the browser handles Obsidian URI requests.
+        Without this step, the browser would require you to authorize each individual page from which you want to clip
+        content, which can be
+        inconvenient and time-consuming.</p>
 
-    <p>For first-time users, you will need to authorize the page at <a
-        href="https://niondevi.github.io/clipsidian/clip.htm">https://niondevi.github.io/clipsidian/clip.htm</a> to open
-      Obsidian. This authorization is a necessary workaround due to how Chrome handles URI requests. Without this step,
-      Chrome would require you to authorize each individual page from which you want to clip content, which can be
-      inconvenient and time-consuming.</p>
-
-    <p>By authorizing this specific page, you enable it to handle all subsequent clips, thus avoiding repeated
-      authorization requests. This authorization only happens once, streamlining your clipping process. When handling
-      subsequent clips, any data (like the content to be clipped) that's passed as URL parameters to that page is not
-      sent
-      to a server but is instead handled entirely within your browser.</p>
+      <p>By authorizing the page at Clipsidian's <a
+          href="https://github.com/niondevi/clipsidian/blob/main/docs/clip.htm" target="_blank">Github
+          Pages</a> (<a href="https://github.com/niondevi/clipsidian/blob/main/docs/clip.max.htm"
+          target="_blank">readable version</a>), you
+        enable it to handle all subsequent clips, thus avoiding repeated
+        authorization requests. This authorization only happens once, streamlining your clipping process. When handling
+        subsequent clips, any data (like the content to be clipped) that's passed as URL parameters to that page is not
+        sent to a server but is instead handled entirely within your browser.</p>
+    </div>
 
     <h2>Configuring Clipping Actions</h2>
 
     <div style="text-align:center;">
-      <img src="options.png" alt="Configuration options for clipping actions">
+      <img src="img/options.png" alt="Configuration options for clipping actions">
     </div>
 
     <p>Effortlessly save and organize your digital snippets with our easy-to-use Clipping Actions feature! Tailor your
       clipping process to suit your needs using customizable options and dynamic template strings.</p>
 
     <p>Take full control of date and time strings with formatting options and language settings.
-      <a href="https://github.com/niondevi/clipsidian#configuring-clipping-actions">Learn more about Configuring
+      <a href="https://github.com/niondevi/clipsidian#configuring-clipping-actions" target="_blank">Learn more about
+        Configuring
         Clipping Actions here</a>.
     </p>
 
     <h2>Data Safety</h2>
 
-    <p>Your data is secure and is only processed within your browser. Clipsidian doesn't
-      send, track, or store any of your details. If you still have any doubts, you or someone you trust could always
-      take
-      a look at the code (<a href="https://github.com/niondevi/clipsidian">it's open source!</a>), just to make sure
-      everything's clear. As an open-source
-      project, Clipsidian is built on full
-      transparency.</p>
+    <div style="padding:0 2em;">
+      <p>Your data is secure and is only processed within your browser. Clipsidian doesn't
+        send, track, or store any of your details. If you still have any doubts, you or someone you trust could always
+        take
+        a look at the code (<a href="https://github.com/niondevi/clipsidian" target="_blank">it's open source!</a>),
+        just to make sure
+        everything's clear. As an open-source
+        project, Clipsidian is built on full
+        transparency.</p>
+    </div>
 
     <h2>Contributing</h2>
 
-    <p>We welcome contributions to Clipsidian!</p>
 
-    <p>If you like the project and want to contribute, you can support me on <a
-        href="https://www.patreon.com/niondevi">Patreon</a> or <a href="https://ko-fi.com/niondevi">Ko-fi</a>.</p>
+    <div style="padding:0 2em;">
+      <p>We welcome contributions to Clipsidian!</p>
 
-    <p>For any issues, feature requests, or questions, please open an <a
-        href="https://github.com/niondevi/clipsidian/issues">issue</a> on our <a
-        href="https://github.com/niondevi/clipsidian">GitHub</a>.</p>
+      <p>If you like the project and want to contribute, you can support me on <a
+          href="https://www.patreon.com/niondevi" target="_blank">Patreon</a> or <a href="https://ko-fi.com/niondevi"
+          target="_blank">Ko-fi</a>.</p>
 
-    <div style="text-align:center;">
-      <img src="icon/icon48.png" style="border:0;" alt="Clipsidian Icon">
+      <p>For any issues, feature requests, or questions, please open an <a
+          href="https://github.com/niondevi/clipsidian/issues" target="_blank">issue</a> on <a
+          href="https://github.com/niondevi/clipsidian" target="_blank">GitHub</a>.</p>
+
+      <div style="text-align:center;">
+        <img src="icon/icon48.png" style="border:0;" alt="Clipsidian Icon">
+      </div>
     </div>
-
 
   </div>
 

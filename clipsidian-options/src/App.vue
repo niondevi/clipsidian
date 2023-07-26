@@ -2,7 +2,7 @@
   <div id="app">
     <h1><img src="/icon/icon48.png"> Clipsidian Options</h1>
     <div class=" frame">
-      <h2><b>✂︎</b> Clipping Actions</h2>
+      <h2><span>✂︎</span> Clipping Actions</h2>
     </div>
     <div class="frame">
       <div class="frame-content">
