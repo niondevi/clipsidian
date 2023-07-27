@@ -30,16 +30,6 @@
       "128": "icon/icon128.png"
     }
   },
-  "web_accessible_resources": [
-    {
-      "resources": [
-        "icon/icon48.png"
-      ],
-      "matches": [
-        "<all_urls>"
-      ]
-    }
-  ],
   "content_scripts": [
     {
       "matches": [
