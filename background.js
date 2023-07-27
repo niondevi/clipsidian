@@ -120,3 +120,7 @@ self.addEventListener('install', async (event) => {
     chrome.tabs.create({ url: chrome.runtime.getURL("options/options.html") }, () => {})
   );
 });
+
+chrome.action.onClicked.addListener(() => {
+    chrome.tabs.create({ url: chrome.runtime.getURL("options/options.html") }, () => {})
+});
