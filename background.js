@@ -87,8 +87,6 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
         authorizedUrl += '&content=' + encodeURI(output);
         authorizedUrl += `&append=${!action.overwrite}&silent=${!action.openNote}`;
 
-        console.log(authorizedUrl)
-
         chrome.tabs.create({
           url: authorizedUrl,
           active: false,
