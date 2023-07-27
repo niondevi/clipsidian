@@ -14,7 +14,8 @@
     "contextMenus",
     "tabs",
     "storage",
-    "activeTab"
+    "activeTab",
+    "scripting"
   ],
   "background": {
     "service_worker": "background.js",
@@ -27,16 +28,5 @@
       "48": "icon/icon48.png",
       "128": "icon/icon128.png"
     }
-  },
-  "content_scripts": [
-    {
-      "matches": [
-        "<all_urls>"
-      ],
-      "js": [
-        "lib/turndown.js",
-        "contentScript.js"
-      ]
-    }
-  ]
+  }
 }

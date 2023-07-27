@@ -65,6 +65,14 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
 
     const action = data.actions[actionIndex];
 
+    await chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      files: [
+        "lib/turndown.js",
+        "contentScript.js"
+      ],
+    });
+
     const selectListener = (request) => {
       if (request.msg === 'selected_text') {
 
